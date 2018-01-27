@@ -32,18 +32,17 @@ public class DisplayManager : MonoBehaviour {
 
 			_point_display.SetActive(true);
 			_point_symbole_box.sprite = _symbols[target_id];
-			// Instantiate(_symbols[target_id], _point_symbole_box.transform);
 
 			_point_number.text = "=" + order.ToString();
 
 		} else {
 
 			_drag_display.SetActive(true);
-			
-			if(b_0 == 1) Instantiate(_symbols[0], _point_symbole_box.transform);
-			if(b_1 == 1) Instantiate(_symbols[1], _point_symbole_box.transform);
-			if(b_2 == 1) Instantiate(_symbols[2], _point_symbole_box.transform);
-			if(b_3 == 1) Instantiate(_symbols[3], _point_symbole_box.transform);
+
+			if(b_0 == 1) InstantiateSprite(_symbols[0], _drag_symbole_box.transform);
+			if(b_1 == 1) InstantiateSprite(_symbols[1], _drag_symbole_box.transform);;
+			if(b_2 == 1) InstantiateSprite(_symbols[2], _drag_symbole_box.transform);;
+			if(b_3 == 1) InstantiateSprite(_symbols[3], _drag_symbole_box.transform);;
 
 			_drag_number.text = order > 0 ? order.ToString() : (order * -1).ToString();
 
@@ -51,10 +50,15 @@ public class DisplayManager : MonoBehaviour {
 				if(order < 0) {
 					_drag_arrows[id].transform.localScale *= -1f;
 				}
-				// _drag_arrows[id].transform.localScale * -1;
 			}
-
 		}
+	}
+	private void InstantiateSprite (Sprite sprite, Transform parent) {
+		var obj = new GameObject();
+		obj.transform.parent = parent;
+		obj.name = "hoge";
+		var image = obj.AddComponent<Image>();
+		image.sprite = sprite;
 	}
 	private void HideAll() {
 		foreach ( Transform n in _drag_symbole_box.transform ) GameObject.Destroy(n.gameObject);
