@@ -8,6 +8,7 @@ public class QuizManager : MonoBehaviour {
     [SerializeField] TableInput _tableInput;
     [SerializeField] QuizBase _quizBase;
     [SerializeField] DisplayManager _displayManager;
+    [SerializeField] SoundManager _soundManager;
 
     public float limitTime = 5.0f;
     private float nowTime = 0.0f;
@@ -148,6 +149,7 @@ public class QuizManager : MonoBehaviour {
 
         if (correctCount == goalID)
         {
+            _soundManager.PlaySECorrect();
             Debug.Log("正解！");
             BeginQuiz();
         }
@@ -168,6 +170,7 @@ public class QuizManager : MonoBehaviour {
             //Debug.Log("押し待ち");
             if (CalcButtonSate())
             {
+                _soundManager.PlaySECorrect();
                 Debug.Log("正解！");
                 BeginQuiz();
             }
@@ -186,6 +189,8 @@ public class QuizManager : MonoBehaviour {
         _sectionDetectore = GameObject.Find("Detectore").GetComponent<SectionDetectore>();
         _tableInput = GameObject.Find("Input").GetComponent<TableInput>();
         _displayManager = GameObject.Find("Canvas").GetComponent<DisplayManager>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        _soundManager.PlayBGM();
 
         isUpdate = true;
 
