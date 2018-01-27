@@ -65,7 +65,7 @@ public class QuizManager : MonoBehaviour
                 (nowButton[3] == _tableInput.GetButton(3))
             )
         {
-            Debug.Log("ボタン状態正解");
+            //Debug.Log("ボタン状態正解");
             return true;
         }
         return false;
@@ -134,8 +134,9 @@ public class QuizManager : MonoBehaviour
         {
             int difference = _sectionDetectore.GetCurrentId() - nowRotationID;
 
-            Debug.Log(roundCorrectCount);
-            Debug.Log(goalID); 
+            //Debug.Log(roundCorrectCount);
+            //Debug.Log(goalID); 
+
             if (isClockwise && CalcButtonSate())
             {
                 if (difference > 0)
