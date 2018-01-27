@@ -142,7 +142,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sectionDetectore: {fileID: 0}
-  quizBase: {fileID: 417513872}
+  _tableInput: {fileID: 0}
+  _quizBase: {fileID: 417513872}
+  _displayManager: {fileID: 0}
+  limitTime: 5
 --- !u!4 &417513871
 Transform:
   m_ObjectHideFlags: 0
