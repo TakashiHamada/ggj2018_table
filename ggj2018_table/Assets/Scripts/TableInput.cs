@@ -14,9 +14,13 @@ public class TableInput : MonoBehaviour {
 	}
 	void Update () {
 		Input.gyro.enabled = true;
-		_euler = Input.gyro.attitude.eulerAngles.z;
-		_buttons[0] = Input.GetKey(KeyCode.Joystick1Button0);
-		_buttons[1] = Input.GetKey(KeyCode.Joystick1Button1);
-		_buttons[2] = Input.GetKey(KeyCode.Joystick1Button2);
+		if(_is_test_mode) {
+			if(_euler < 0f) _euler = 359.9f;
+			if(_euler > 360f) _euler = 0f;
+			_euler += Input.GetAxis("Horizontal");
+		} else _euler = Input.gyro.attitude.eulerAngles.z;
+		_buttons[0] = Input.GetKey(_is_test_mode ? KeyCode.Q : KeyCode.Joystick1Button0);
+		_buttons[1] = Input.GetKey(_is_test_mode ? KeyCode.W : KeyCode.Joystick1Button1);
+		_buttons[2] = Input.GetKey(_is_test_mode ? KeyCode.E : KeyCode.Joystick1Button2);
 	}
 }
