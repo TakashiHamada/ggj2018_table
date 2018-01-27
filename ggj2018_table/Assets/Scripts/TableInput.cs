@@ -5,7 +5,7 @@ using UnityEngine;
 public class TableInput : MonoBehaviour {
 	[SerializeField] bool _is_test_mode = false;
 	private float _euler = 0f;
-	private bool[] _buttons = new bool[3];
+	private bool[] _buttons = new bool[4];
 	public int GetEuler () {
 		return (int)_euler;
 	}
@@ -22,5 +22,6 @@ public class TableInput : MonoBehaviour {
 		_buttons[0] = Input.GetKey(_is_test_mode ? KeyCode.Q : KeyCode.Joystick1Button0);
 		_buttons[1] = Input.GetKey(_is_test_mode ? KeyCode.W : KeyCode.Joystick1Button1);
 		_buttons[2] = Input.GetKey(_is_test_mode ? KeyCode.E : KeyCode.Joystick1Button2);
+		_buttons[3] = Input.GetKey(_is_test_mode ? KeyCode.R : KeyCode.Joystick1Button3);
 	}
 }
