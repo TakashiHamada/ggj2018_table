@@ -8,7 +8,7 @@ public class SectionDetectore : MonoBehaviour {
 	[SerializeField] TableInput _table_input;
 	private int _interval;
 	private int _current_id = -1;
-	int GetCurrentId () {
+	public int GetCurrentId () {
 		return _current_id;
 	}
 	void Start () {
