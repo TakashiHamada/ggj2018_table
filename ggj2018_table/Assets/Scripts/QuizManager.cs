@@ -5,13 +5,19 @@ using UnityEngine;
 /// <summary>
 /// クイズを進行します
 /// </summary>
-public class QuizManager : MonoBehaviour {
+public class QuizManager : MonoBehaviour
+{
 
-    [SerializeField] SectionDetectore _sectionDetectore;
-    [SerializeField] TableInput _tableInput;
-    [SerializeField] QuizBase _quizBase;
-    [SerializeField] DisplayManager _displayManager;
-    [SerializeField] SoundManager _soundManager;
+    [SerializeField]
+    SectionDetectore _sectionDetectore;
+    [SerializeField]
+    TableInput _tableInput;
+    [SerializeField]
+    QuizBase _quizBase;
+    [SerializeField]
+    DisplayManager _displayManager;
+    [SerializeField]
+    SoundManager _soundManager;
 
     public float limitTime = 5.0f;
     private float nowTime = 0.0f;
@@ -30,18 +36,30 @@ public class QuizManager : MonoBehaviour {
     // 押しながら回す関連
 
     // ちゃんとおしっぱでうごいた数
-    private int correctCount = 0;
+    private int roundCorrectCount = 0;
 
     // 時計回り？
     private bool isClockwise;
 
 
     ///////////////////////////
+    // 蓄積情報
+
+    // 出題数をカウント
+    private int quizCount = 0;
+
+    // 正解数
+    private int quizCorrectCount = 0;
+
+    // スコア
+    private int score = 0;
+
+    ///////////////////////////
 
     // ボタンの状態を調べます
     bool CalcButtonSate()
     {
-        if((nowButton[0] == _tableInput.GetButton(0)) &&
+        if ((nowButton[0] == _tableInput.GetButton(0)) &&
             (nowButton[1] == _tableInput.GetButton(1)) &&
               (nowButton[2] == _tableInput.GetButton(2)) &&
                 (nowButton[3] == _tableInput.GetButton(3))
@@ -52,7 +70,7 @@ public class QuizManager : MonoBehaviour {
         }
         return false;
     }
-    
+
     // ランダムにクイズ情報を生成
     void RandomSet()
     {
@@ -72,7 +90,7 @@ public class QuizManager : MonoBehaviour {
         int tmpButton1 = (nowButton[1]) ? 1 : 0;
         int tmpButton2 = (nowButton[2]) ? 1 : 0;
         int tmpButton3 = (nowButton[3]) ? 1 : 0;
-        
+
         // UIセット
         _displayManager.ShowIntroduction(nowType, tmpButton0, tmpButton1, tmpButton2, tmpButton3, nowGoalNum);
 
@@ -85,16 +103,18 @@ public class QuizManager : MonoBehaviour {
         RandomSet();
         nowTime = limitTime;
         isUpdate = true;
-        correctCount = 0;
+        roundCorrectCount = 0;
         nowRotationID = _sectionDetectore.GetCurrentId();
 
-        if(nowType == 0)
+        quizCount++;
+
+        if (nowType == 0)
         {
             goalID = nowGoalNum;
         }
         else
         {
-            if(nowGoalNum > 0)
+            if (nowGoalNum > 0)
             {
                 isClockwise = true;
             }
@@ -113,35 +133,33 @@ public class QuizManager : MonoBehaviour {
         if (nowRotationID != _sectionDetectore.GetCurrentId())
         {
             int difference = _sectionDetectore.GetCurrentId() - nowRotationID;
-            
-            if (isClockwise)
+
+            Debug.Log(roundCorrectCount);
+            Debug.Log(goalID); 
+            if (isClockwise && CalcButtonSate())
             {
-                if (difference < -6 && CalcButtonSate())
+                if (difference > 0)
+                {
+                    roundCorrectCount++;
+                }
+
+                if (difference < -6)
                 {
                     difference = 1;
-                    correctCount += difference;
-                }
-                else
-                {
-                    if(difference > 0 && CalcButtonSate())
-                    {
-                        correctCount += difference;
-                    }
+                    roundCorrectCount++;
                 }
             }
             else
             {
-                if (difference > 6 && CalcButtonSate())
+                if (difference < 0)
                 {
-                    difference = 1;
-                    correctCount += difference;
+                    roundCorrectCount--;
                 }
-                else
+
+                if (difference > 6)
                 {
-                    if (difference < 0 && CalcButtonSate())
-                    {
-                        correctCount += difference;
-                    }
+                    difference = -1;
+                    roundCorrectCount--;
                 }
             }
 
@@ -150,10 +168,13 @@ public class QuizManager : MonoBehaviour {
         }
 
 
-        if (correctCount == goalID)
+        if (roundCorrectCount == goalID)
         {
             _soundManager.PlaySECorrect();
             Debug.Log("正解！");
+            quizCorrectCount++;
+            roundCorrectCount = 0;
+
             BeginQuiz();
         }
     }
@@ -175,20 +196,23 @@ public class QuizManager : MonoBehaviour {
             {
                 _soundManager.PlaySECorrect();
                 Debug.Log("正解！");
+                quizCorrectCount++;
+
                 BeginQuiz();
             }
         }
     }
-    
+
 
     IEnumerator sleep(float seconds)
     {
         yield return new WaitForSeconds(seconds);
     }
-    
+
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         _sectionDetectore = GameObject.Find("Detectore").GetComponent<SectionDetectore>();
         _tableInput = GameObject.Find("Input").GetComponent<TableInput>();
         _displayManager = GameObject.Find("Canvas").GetComponent<DisplayManager>();
@@ -200,17 +224,18 @@ public class QuizManager : MonoBehaviour {
         StartCoroutine("sleep", 1);
         BeginQuiz();
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        if(isUpdate)
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (isUpdate)
         {
             nowTime -= Time.deltaTime;
             if (nowTime <= 0.0f)
             {
-                Debug.Log("タイムオーバー！");
-                isUpdate = false;
+                //Debug.Log("タイムオーバー！");
+                //isUpdate = false;
 
             }
 
