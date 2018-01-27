@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 354876888}
   - component: {fileID: 354876887}
   m_Layer: 0
-  m_Name: Image
+  m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,7 +496,7 @@ GameObject:
   - component: {fileID: 759477469}
   - component: {fileID: 759477468}
   m_Layer: 0
-  m_Name: Text
+  m_Name: num
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,6 +602,7 @@ GameObject:
   - component: {fileID: 838304069}
   - component: {fileID: 838304068}
   - component: {fileID: 838304067}
+  - component: {fileID: 838304071}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -686,6 +687,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &838304071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 838304066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3181d82c583345babfa8e27297b6335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _symbols:
+  - {fileID: 21300000, guid: 5a40121c32d42411891b1453f85b2090, type: 3}
+  - {fileID: 21300000, guid: a9f95accc503147e1ba429b2553fa1fc, type: 3}
+  - {fileID: 21300000, guid: 4a74a1ffd86594dcf84bf861a1fe7de9, type: 3}
+  - {fileID: 21300000, guid: afffbbf68bd35460d9ec7a0655154bba, type: 3}
+  _drag_display: {fileID: 1645976746}
+  _drag_number: {fileID: 759477468}
+  _drag_arrows:
+  - {fileID: 354876885}
+  - {fileID: 1471837268}
+  _drag_symbole_box: {fileID: 1460313199}
+  _point_display: {fileID: 832336082}
+  _point_number: {fileID: 1525880253}
+  _point_symbole_box: {fileID: 361428989}
 --- !u!1 &1110833359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,7 +1073,7 @@ GameObject:
   - component: {fileID: 1471837271}
   - component: {fileID: 1471837270}
   m_Layer: 0
-  m_Name: Image (1)
+  m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1115,7 +1141,7 @@ GameObject:
   - component: {fileID: 1525880254}
   - component: {fileID: 1525880253}
   m_Layer: 0
-  m_Name: Text
+  m_Name: num
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
