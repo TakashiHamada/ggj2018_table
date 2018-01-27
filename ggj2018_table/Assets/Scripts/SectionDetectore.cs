@@ -11,6 +11,9 @@ public class SectionDetectore : MonoBehaviour {
 	public int GetCurrentId () {
 		return _current_id;
 	}
+	public int GetDivistion () {
+		return _division;
+	}
 	void Start () {
 		_interval = 360 / _division;	
 	}
