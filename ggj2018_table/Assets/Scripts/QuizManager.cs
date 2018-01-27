@@ -25,8 +25,8 @@ public class QuizManager : MonoBehaviour {
     ////////////////////////////
     // 押しながら回す関連
 
-    // うごいた数
-    private int subID = 0;
+    // ちゃんとおしっぱでうごいた数
+    private int correctCount = 0;
 
     // 時計回り？
     private bool isClockwise;
@@ -43,14 +43,12 @@ public class QuizManager : MonoBehaviour {
                 (nowButton[3] == _tableInput.GetButton(3))
             )
         {
-            Debug.Log("ボタンOK");
+            Debug.Log("ボタン状態正解");
             return true;
         }
         return false;
     }
-
-    int Calc
-
+    
     // ランダムにクイズ情報を生成
     void RandomSet()
     {
@@ -83,23 +81,24 @@ public class QuizManager : MonoBehaviour {
         RandomSet();
         nowTime = limitTime;
         isUpdate = true;
+        correctCount = 0;
         nowRotationID = _sectionDetectore.GetCurrentId();
 
         if(nowType == 0)
         {
-            
             goalID = nowGoalNum;
         }
         else
         {
-            // 一旦押すやつだけ
-            BeginQuiz();
-
-            //goalID = nowGoalNum + nowRotationID;
-            //if (goalID > 8)
-            //{
-
-            //}
+            if(nowGoalNum > 0)
+            {
+                isClockwise = true;
+            }
+            else
+            {
+                isClockwise = false;
+            }
+            goalID = nowGoalNum;
         }
     }
 
@@ -109,16 +108,47 @@ public class QuizManager : MonoBehaviour {
 
         if (nowRotationID != _sectionDetectore.GetCurrentId())
         {
-            subID += _sectionDetectore.GetCurrentId() - nowRotationID;
+            int difference = _sectionDetectore.GetCurrentId() - nowRotationID;
+            
+            if (isClockwise)
+            {
+                if (difference < -6 && CalcButtonSate())
+                {
+                    difference = 1;
+                    correctCount += difference;
+                }
+                else
+                {
+                    if(difference > 0 && CalcButtonSate())
+                    {
+                        correctCount += difference;
+                    }
+                }
+            }
+            else
+            {
+                if (difference > 6 && CalcButtonSate())
+                {
+                    difference = 1;
+                    correctCount += difference;
+                }
+                else
+                {
+                    if (difference < 0 && CalcButtonSate())
+                    {
+                        correctCount += difference;
+                    }
+                }
+            }
 
             nowRotationID = _sectionDetectore.GetCurrentId();
             Debug.Log("nowRotationID:" + nowRotationID);
         }
 
 
-        if (nowRotationID == goalID)
+        if (correctCount == goalID)
         {
-            Debug.Log("ゴール！");
+            Debug.Log("正解！");
             BeginQuiz();
         }
     }
