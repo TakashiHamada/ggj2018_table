@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 127390233}
   - component: {fileID: 127390232}
   m_Layer: 0
-  m_Name: Text
+  m_Name: Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ff6c54ddf58d459abcba814f1574167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _is_test_mode: 0
 --- !u!23 &127390233
 MeshRenderer:
   m_ObjectHideFlags: 0
