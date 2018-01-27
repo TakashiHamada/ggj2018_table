@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// クイズを進行します
+/// </summary>
 public class QuizManager : MonoBehaviour {
 
     [SerializeField] SectionDetectore _sectionDetectore;
@@ -206,8 +209,9 @@ public class QuizManager : MonoBehaviour {
             nowTime -= Time.deltaTime;
             if (nowTime <= 0.0f)
             {
-                //Debug.Log("タイムオーバー！");
-                //isUpdate = false;
+                Debug.Log("タイムオーバー！");
+                isUpdate = false;
+
             }
 
             switch (nowType)

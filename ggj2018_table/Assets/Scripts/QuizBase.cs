@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// クイズの定義や情報にアクセスするための関数郡
+/// </summary>
 public class QuizBase : MonoBehaviour
 {
 
     public int[,] Quiz;
 
+    // クイズの内容がここにベタ打ちされている
     void Awake()
     {
         Quiz = new int[,] {
@@ -1013,17 +1017,12 @@ public class QuizBase : MonoBehaviour
 };
     }
 
-    // ベタ打ちされている
     void Start()
     {
         
     }
 
-    public void PrintQuiz(int index)
-    {
-
-    }
-
+    // クイズの種類を取得
     public int GetQuizType(int index)
     {
         int retInt = 0;
@@ -1034,6 +1033,7 @@ public class QuizBase : MonoBehaviour
             return retInt;
     }
 
+    // クイズのボタン状態を取得
     public bool GetButtonState(int index, int ButtonIndex)
     {
         if (Quiz.GetLength(0) > index && ButtonIndex < 4)
@@ -1050,6 +1050,7 @@ public class QuizBase : MonoBehaviour
         return false;
     }
 
+    // クイズの目指すべきポジション値(あるいは回すポジション数など)を取得
     public int GetPositionNum(int index)
     {
         int retInt = 0;
@@ -1061,6 +1062,7 @@ public class QuizBase : MonoBehaviour
     }
 
 
+    // クイズの内容を取得
     public string GetQuizString(int index)
     {
         string rtnStr = "";
@@ -1077,7 +1079,7 @@ public class QuizBase : MonoBehaviour
         return rtnStr;
     }
 
-
+    // ランダムにクイズIDを取得
     public int GetRandomQuizIndex()
     {
         return Random.Range(0, (Quiz.GetLength(0)));
