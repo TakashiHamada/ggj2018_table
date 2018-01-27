@@ -7,8 +7,7 @@ public class QuizBase : MonoBehaviour
 
     public int[,] Quiz;
 
-    // ベタ打ちされている
-    void Start()
+    void Awake()
     {
         Quiz = new int[,] {
 {0,1,0,0,0,2},
@@ -1014,6 +1013,12 @@ public class QuizBase : MonoBehaviour
 };
     }
 
+    // ベタ打ちされている
+    void Start()
+    {
+        
+    }
+
     public void PrintQuiz(int index)
     {
 
@@ -1022,7 +1027,7 @@ public class QuizBase : MonoBehaviour
     public int GetQuizType(int index)
     {
         int retInt = 0;
-        if (Quiz.Length > index)
+        if (Quiz.GetLength(0) > index)
         {
             return Quiz[index, 0];
         }
@@ -1031,7 +1036,7 @@ public class QuizBase : MonoBehaviour
 
     public bool GetButtonState(int index, int ButtonIndex)
     {
-        if (Quiz.Length > index && ButtonIndex > 4)
+        if (Quiz.GetLength(0) > index && ButtonIndex < 4)
         {
             if(Quiz[index, (ButtonIndex + 1)] > 0)
             {
@@ -1048,7 +1053,7 @@ public class QuizBase : MonoBehaviour
     public int GetPositionNum(int index)
     {
         int retInt = 0;
-        if (Quiz.Length > index)
+        if (Quiz.GetLength(0) > index)
         {
             return Quiz[index, 5];
         }
@@ -1059,14 +1064,14 @@ public class QuizBase : MonoBehaviour
     public string GetQuizString(int index)
     {
         string rtnStr = "";
-        if (Quiz.Length > index)
+        if (Quiz.GetLength(0) > index)
         {
-            rtnStr += "Type :" + Quiz[index, 0] + " ";
+            rtnStr += "【Type :" + Quiz[index, 0] + "】 ";
             rtnStr += "btn1 :" + Quiz[index, 1] + " ";
             rtnStr += "btn2 :" + Quiz[index, 2] + " ";
             rtnStr += "btn3 :" + Quiz[index, 3] + " ";
             rtnStr += "btn4 :" + Quiz[index, 4] + " ";
-            rtnStr += "num :" + Quiz[index, 5];
+            rtnStr += " num :" + Quiz[index, 5];
         };
 
         return rtnStr;
@@ -1075,12 +1080,11 @@ public class QuizBase : MonoBehaviour
 
     public int GetRandomQuizIndex()
     {
-        return Random.Range(0, Quiz.Length); ;
+        return Random.Range(0, (Quiz.GetLength(0)));
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(GetQuizString(1));
     }
 }
