@@ -12,6 +12,7 @@ public class DisplayManager : MonoBehaviour {
 	[SerializeField] GameObject _point_display;
 	[SerializeField] Text _point_number;
 	[SerializeField] Image _point_symbole_box;
+	[SerializeField] Text _count_down_text;
 	void Start () {
 		HideAll();
 		// test
@@ -19,7 +20,10 @@ public class DisplayManager : MonoBehaviour {
 		
 	}
 	void Update () {
-		
+		// SetCountDown(1.234f);
+	}
+	public void SetCountDown (float num) {
+		_count_down_text.text = num.ToString("N1");
 	}
 	public void ShowIntroduction(int type, int b_0, int b_1, int b_2, int b_3, int order){
 		HideAll();
@@ -56,7 +60,7 @@ public class DisplayManager : MonoBehaviour {
 	private void InstantiateSprite (Sprite sprite, Transform parent) {
 		var obj = new GameObject();
 		obj.transform.parent = parent;
-		obj.name = "hoge";
+		obj.name = "CreatedSprite";
 		var image = obj.AddComponent<Image>();
 		image.sprite = sprite;
 	}

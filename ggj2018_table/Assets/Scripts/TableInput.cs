@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class TableInput : MonoBehaviour {
 	[SerializeField] bool _is_test_mode = false;
-	private float _euler = 0f;
+    // テスト用の回転スピード
+    [SerializeField] float _testRotationSpeed = 3.0f;
+    private float _euler = 0f;
 	private bool[] _buttons = new bool[4];
 	public int GetEuler () {
 		return (int)_euler;
@@ -17,7 +19,7 @@ public class TableInput : MonoBehaviour {
 		if(_is_test_mode) {
 			if(_euler < 0f) _euler = 359.9f;
 			if(_euler > 360f) _euler = 0f;
-			_euler += Input.GetAxis("Horizontal");
+			_euler += (_testRotationSpeed * Input.GetAxis("Horizontal"));
 		} else _euler = Input.gyro.attitude.eulerAngles.z;
 		_buttons[0] = Input.GetKey(_is_test_mode ? KeyCode.Q : KeyCode.Joystick1Button0);
 		_buttons[1] = Input.GetKey(_is_test_mode ? KeyCode.W : KeyCode.Joystick1Button1);
