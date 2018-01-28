@@ -1,0 +1,148 @@
+<html>
+<head>
+    <style>
+        body {
+            padding: 20%;
+        }
+        div {
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn-start">start</button>
+    <button id="btn-export">export</button>
+    <div id="subjects">-</div>
+    <div id="time">-</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var param = {
+            subject_count : 3,
+            time_limit : 5,
+            range : 5,
+        }
+        var kind_type = ["point","drag"];
+        var kind_symbole = ["circle","triangle","square","star"];
+        function CreateSubjectInstance (num_type, num_symboles, num_order) {
+            return {
+                type : kind_type[num_type],
+//                symbole : kind_symbole[num_symboles],
+                symbole : num_symboles,
+                order : num_order,
+            }
+        }
+        var data = new Array();
+        for(var id = 0; id < 1000; id++) {
+            var type = GetType();
+            data.push(CreateSubjectInstance(type, type == 0 ? GetSymbol2(1) : GetSymbol2(3), GetOrder()));
+        }
+        function GetSymbol2 (num) {
+//            return "hoge";
+            var result = new Array();
+            for(var id = 0; id < num; id++) {
+                result.push(kind_symbole[Math.floor(Math.random() * 3)]);
+            }
+            result = result.filter(function (x, i, self) {
+                return self.indexOf(x) === i;
+            });
+            return result;
+        }
+        function GetType () {
+            var rand = Math.random();
+            return rand < 0.3 ? 0 : 1;
+        }
+        function ConvertToCSV (original_data) {
+            var result = "{\n";
+            for(var id = 0; id < original_data.length; id ++) {
+                result += "{" + kind_type.indexOf(original_data[id].type) + "," +
+                ConvetSymbolesToCSV(original_data[id].symbole) +
+                original_data[id].order + "},\n";
+            }
+            result += "}";
+            console.log(result);
+            return result;
+        }
+        function IsIn(symboles, me) {
+            for(var id = 0; id < symboles.length; id++) {
+                if(me == symboles[id]) return true;
+            }
+            return false;
+        }
+         function ConvetSymbolesToCSV(symboles) {
+            var result = "";
+            for(var id = 0; id < kind_symbole.length; id++) {
+                result += (IsIn(symboles, kind_symbole[id]) ? 1 : 0) + ",";
+            }
+            return result;
+//            var result = "(";
+//            for(var id = 0; id < symboles.length; id++) {
+//                result += kind_symbole.indexOf(symboles[id]);
+//                result += id == symboles.length - 1 ? "" : ",";
+//            }
+//            result += ")";
+//            return result;
+        }
+        function GetOrder () {
+            while (true) {
+//                console.log("test");
+                var result = Math.floor((Math.random() * param.range * 2) - param.range + 0.5);
+//                console.log(result);
+                if(result != 0) return result;
+            }
+        }
+//        console.log(data);
+        ConvertToCSV(data);
+        
+        var is_game = false;
+        function GetSubjects() {
+            var one = GetSymbol();
+            var two = GetSymbol();
+            return one + (two == one ? "" : two) + " => " + GetRandomInt(5);
+        }
+        function GetFixedSubjects(prefix) {
+            var num = Math.abs(GetRandomInt(5));
+            if(num == 0) num = 1;
+            return "[" + prefix + num + "]";
+        }
+        function GetRandomInt (num) {
+            var num = Math.floor((Math.random() * (num * 2)) - num + 0.5);
+            if(num == 0) num = 1;
+            return num;
+        }
+        $("#btn-start").click(function () {
+            Rest();
+            $("#subjects").text("");
+            for(var id = 0; id < param.subject_count; id++) {
+                if(Math.random() < 0.3) {
+                    $("#subjects").append(GetFixedSubjects(GetSymbol()) + "<br>");
+                } else {
+                    $("#subjects").append(GetSubjects() + "<br>");
+                }
+            }
+        });
+        function GetSymbol(){
+            var symboles = ["○","△","□"];
+            is_game = true;
+            return symboles[Math.floor(Math.random() * symboles.length)];
+        }
+        var limit = 0;
+        function loop(){
+            if(is_game) {
+                if(limit == 0) Rest();
+                else limit --;
+                $("#time").text(limit);
+            }
+          setTimeout(loop,1000);
+        }
+        loop();
+        function Rest () {
+            limit = param.time_limit;
+            is_game = false;
+        }
+        $("#btn-export").click(function(){
+            
+        });
+        
+    </script>
+</body>
+</html>
