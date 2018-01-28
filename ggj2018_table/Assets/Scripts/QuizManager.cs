@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// クイズを進行します
@@ -19,6 +20,10 @@ public class QuizManager : MonoBehaviour
     DisplayManager _displayManager;
     [SerializeField]
     SoundManager _soundManager;
+    [SerializeField]
+    Text _debugDegree_text;
+    [SerializeField]
+    bool isDebug;
 
     public float limitTime = 60.0f;
     private float nowTime = 0.0f;
@@ -234,12 +239,17 @@ public class QuizManager : MonoBehaviour
 
         StartCoroutine("sleep", 1);
         BeginQuiz();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (isDebug)
+        {
+            _debugDegree_text.text = (_tableInput.GetEuler()).ToString();
+        }
+        
         if (isUpdate)
         {
             nowTime -= Time.deltaTime;
