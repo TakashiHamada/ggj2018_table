@@ -206,7 +206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 30}
+  m_AnchoredPosition: {x: 300, y: -70}
   m_SizeDelta: {x: 1024, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &642934512
@@ -241,7 +241,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 11
 --- !u!222 &642934513
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -342,7 +342,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 323.5193, y: 80}
+  m_AnchoredPosition: {x: 280, y: 0}
   m_SizeDelta: {x: 1024, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &994294140
@@ -377,7 +377,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 11
 --- !u!222 &994294141
 CanvasRenderer:
   m_ObjectHideFlags: 0
