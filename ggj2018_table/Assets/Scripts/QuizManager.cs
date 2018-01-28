@@ -23,6 +23,8 @@ public class QuizManager : MonoBehaviour
     [SerializeField]
     Text _debugDegree_text;
     [SerializeField]
+    Text _nowPos_text;
+    [SerializeField]
     bool isDebug;
 
     public float limitTime = 60.0f;
@@ -257,6 +259,7 @@ public class QuizManager : MonoBehaviour
         if (isDebug)
         {
             _debugDegree_text.text = (_tableInput.GetEuler()).ToString();
+            _nowPos_text.text = "Now: " + _sectionDetectore.GetCurrentId().ToString();
         }
         
         if (isUpdate)
