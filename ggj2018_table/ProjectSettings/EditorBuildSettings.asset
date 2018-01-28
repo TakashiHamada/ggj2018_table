@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: bb2c5eb4dc4febe438be2140ab1201d3
   - enabled: 1
-    path: Assets/main.unity
+    path: Assets/Scenes/main.unity
     guid: 29f4137efced7448cb42f91adc3d286d
   - enabled: 1
     path: Assets/Scenes/QuizRogic.unity
@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sound.unity
     guid: 9bb7ee2b86e0ee344a49eaf1456d790f
+  - enabled: 1
+    path: Assets/Scenes/Result.unity
+    guid: b539598d324a44b10baf18216deae02a

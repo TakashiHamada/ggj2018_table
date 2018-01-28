@@ -252,9 +252,7 @@ public class QuizManager : MonoBehaviour
                 isUpdate = false;
                 _soundManager.PlaySEWrong();
                 StartCoroutine("sleep", 1);
-                SceneManager.LoadScene("main");
-
-
+                SceneManager.LoadScene("Result");
             }else
             {
                 _displayManager.SetCountDown(nowTime);
