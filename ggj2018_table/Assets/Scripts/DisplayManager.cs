@@ -36,6 +36,7 @@ public class DisplayManager : MonoBehaviour {
 
 			_point_display.SetActive(true);
 			_point_symbole_box.sprite = _symbols[target_id];
+			_point_symbole_box.color = Color.red;
 
 			_point_number.text = "=" + order.ToString();
 
@@ -63,6 +64,7 @@ public class DisplayManager : MonoBehaviour {
 		obj.name = "CreatedSprite";
 		var image = obj.AddComponent<Image>();
 		image.sprite = sprite;
+		image.color = Color.red;
 	}
 	private void HideAll() {
 		foreach ( Transform n in _drag_symbole_box.transform ) GameObject.Destroy(n.gameObject);
