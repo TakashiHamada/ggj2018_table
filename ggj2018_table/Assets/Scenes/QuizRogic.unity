@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -145,7 +145,8 @@ MonoBehaviour:
   _tableInput: {fileID: 0}
   _quizBase: {fileID: 417513872}
   _displayManager: {fileID: 0}
-  limitTime: 5
+  _soundManager: {fileID: 0}
+  limitTime: 60
 --- !u!4 &417513871
 Transform:
   m_ObjectHideFlags: 0

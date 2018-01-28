@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// クイズを進行します
@@ -19,7 +20,7 @@ public class QuizManager : MonoBehaviour
     [SerializeField]
     SoundManager _soundManager;
 
-    public float limitTime = 5.0f;
+    public float limitTime = 60.0f;
     private float nowTime = 0.0f;
 
     private int nowType = 0;
@@ -52,7 +53,13 @@ public class QuizManager : MonoBehaviour
     private int quizCorrectCount = 0;
 
     // スコア
-    private int score = 0;
+    public static int score = 0;
+
+    // スコア取得
+    public static int GetScore()
+    {
+        return score;
+    }
 
     ///////////////////////////
 
@@ -102,7 +109,7 @@ public class QuizManager : MonoBehaviour
     void BeginQuiz()
     {
         RandomSet();
-        nowTime = limitTime;
+        //nowTime = limitTime;
         isUpdate = true;
         roundCorrectCount = 0;
         nowRotationID = _sectionDetectore.GetCurrentId();
@@ -176,7 +183,7 @@ public class QuizManager : MonoBehaviour
             Debug.Log("正解！");
             quizCorrectCount++;
             roundCorrectCount = 0;
-
+            score++;
             BeginQuiz();
         }
     }
@@ -199,7 +206,7 @@ public class QuizManager : MonoBehaviour
                 _soundManager.PlaySECorrect();
                 Debug.Log("正解！");
                 quizCorrectCount++;
-
+                score++;
                 BeginQuiz();
             }
         }
@@ -215,6 +222,8 @@ public class QuizManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        nowTime = limitTime;
+        score = 0;
         _sectionDetectore = GameObject.Find("Detectore").GetComponent<SectionDetectore>();
         _tableInput = GameObject.Find("Input").GetComponent<TableInput>();
         _displayManager = GameObject.Find("Canvas").GetComponent<DisplayManager>();
@@ -234,13 +243,17 @@ public class QuizManager : MonoBehaviour
         if (isUpdate)
         {
             nowTime -= Time.deltaTime;
+            // Debug.Log(nowTime);
             if (nowTime <= 0.0f)
             {
                 Debug.Log("時間切れ！");
+                nowTime = 0.0f;
                 isUpdate = false;
                 _soundManager.PlaySEWrong();
                 StartCoroutine("sleep", 1);
-                BeginQuiz();
+                SceneManager.LoadScene("main");
+
+
             }
 
             switch (nowType)
@@ -252,8 +265,6 @@ public class QuizManager : MonoBehaviour
                     UpdateBeforePush();
                     break;
             }
-
-
         }
     }
 }
