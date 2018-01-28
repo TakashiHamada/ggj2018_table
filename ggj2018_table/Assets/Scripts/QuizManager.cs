@@ -150,30 +150,36 @@ public class QuizManager : MonoBehaviour
             //Debug.Log(roundCorrectCount);
             //Debug.Log(goalID); 
 
-            if (isClockwise && CalcButtonSate())
+            if (isClockwise)
             {
-                if (difference > 0)
+                if(CalcButtonSate())
                 {
-                    roundCorrectCount++;
-                }
+                    if (difference > 0)
+                    {
+                        roundCorrectCount++;
+                    }
 
-                if (difference < -6)
-                {
-                    difference = 1;
-                    roundCorrectCount++;
+                    if (difference < -6)
+                    {
+                        difference = 1;
+                        roundCorrectCount++;
+                    }
                 }
             }
             else
             {
-                if (difference < 0)
+                if(CalcButtonSate())
                 {
-                    roundCorrectCount--;
-                }
+                    if (difference < 0)
+                    {
+                        roundCorrectCount--;
+                    }
 
-                if (difference > 6)
-                {
-                    difference = -1;
-                    roundCorrectCount--;
+                    if (difference > 6)
+                    {
+                        difference = -1;
+                        roundCorrectCount--;
+                    }
                 }
             }
 
@@ -184,12 +190,15 @@ public class QuizManager : MonoBehaviour
 
         if (roundCorrectCount == goalID)
         {
-            _soundManager.PlaySECorrect();
-            Debug.Log("正解！");
-            quizCorrectCount++;
-            roundCorrectCount = 0;
-            score++;
-            BeginQuiz();
+            if(CalcButtonSate())
+            {
+                _soundManager.PlaySECorrect();
+                Debug.Log("正解！");
+                quizCorrectCount++;
+                roundCorrectCount = 0;
+                score++;
+                BeginQuiz();
+            }
         }
     }
 
