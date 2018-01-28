@@ -259,7 +259,7 @@ public class QuizManager : MonoBehaviour
         if (isDebug)
         {
             _debugDegree_text.text = (_tableInput.GetEuler()).ToString();
-            _nowPos_text.text = "Now: " + _sectionDetectore.GetCurrentId().ToString();
+            _nowPos_text.text = "Now: " + (_sectionDetectore.GetCurrentId()+ 1).ToString();
         }
         
         if (isUpdate)
