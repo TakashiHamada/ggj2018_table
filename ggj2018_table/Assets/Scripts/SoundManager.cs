@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour {
                 PlaySESuccessJingleSource();
                 break;
             case 2:
-                PlaySEWrongSource();
+                PlaySEWrong();
                 break;
             case 3:
                 break;
@@ -67,7 +67,7 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
-    public void PlaySEWrongSource()
+    public void PlaySEWrong()
     {
         if (_wrongSource != null)
         {

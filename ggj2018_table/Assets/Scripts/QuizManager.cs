@@ -235,9 +235,11 @@ public class QuizManager : MonoBehaviour
             nowTime -= Time.deltaTime;
             if (nowTime <= 0.0f)
             {
-                //Debug.Log("タイムオーバー！");
-                //isUpdate = false;
-
+                Debug.Log("時間切れ！");
+                isUpdate = false;
+                _soundManager.PlaySEWrong();
+                StartCoroutine("sleep", 1);
+                BeginQuiz();
             }
 
             switch (nowType)
