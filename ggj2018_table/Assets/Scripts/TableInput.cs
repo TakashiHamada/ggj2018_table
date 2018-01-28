@@ -7,12 +7,22 @@ public class TableInput : MonoBehaviour {
     // テスト用の回転スピード
     [SerializeField] float _testRotationSpeed = 3.0f;
     private float _euler = 0f;
+	private float _init_euler;
 	private bool[] _buttons = new bool[4];
 	public int GetEuler () {
-		return (int)_euler;
+		float deg = _euler - _init_euler;
+		if(deg < 0) deg += 360;
+		return (int)deg;
 	}
 	public bool GetButton(int num) {
 		return _buttons[num];
+	}
+	private void SetInitEuler () {
+		_init_euler = Input.gyro.attitude.eulerAngles.z;
+		Debug.Log("SET:" + _euler);
+	}
+	void Start () {
+		SetInitEuler();
 	}
 	void Update () {
 		Input.gyro.enabled = true;
@@ -25,5 +35,7 @@ public class TableInput : MonoBehaviour {
 		_buttons[1] = Input.GetKey(_is_test_mode ? KeyCode.W : KeyCode.Joystick1Button1);
 		_buttons[2] = Input.GetKey(_is_test_mode ? KeyCode.E : KeyCode.Joystick1Button2);
 		_buttons[3] = Input.GetKey(_is_test_mode ? KeyCode.R : KeyCode.Joystick1Button3);
+		// リセット
+		if(Input.GetKeyDown(KeyCode.Space)) SetInitEuler();
 	}
 }
