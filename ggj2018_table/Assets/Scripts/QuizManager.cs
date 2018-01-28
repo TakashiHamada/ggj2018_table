@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// クイズを進行します
@@ -19,6 +20,12 @@ public class QuizManager : MonoBehaviour
     DisplayManager _displayManager;
     [SerializeField]
     SoundManager _soundManager;
+    [SerializeField]
+    Text _debugDegree_text;
+    [SerializeField]
+    Text _nowPos_text;
+    [SerializeField]
+    bool isDebug;
 
     public float limitTime = 60.0f;
     private float nowTime = 0.0f;
@@ -145,30 +152,36 @@ public class QuizManager : MonoBehaviour
             //Debug.Log(roundCorrectCount);
             //Debug.Log(goalID); 
 
-            if (isClockwise && CalcButtonSate())
+            if (isClockwise)
             {
-                if (difference > 0)
+                if(CalcButtonSate())
                 {
-                    roundCorrectCount++;
-                }
+                    if (difference > 0)
+                    {
+                        roundCorrectCount++;
+                    }
 
-                if (difference < -6)
-                {
-                    difference = 1;
-                    roundCorrectCount++;
+                    if (difference < -6)
+                    {
+                        difference = 1;
+                        roundCorrectCount++;
+                    }
                 }
             }
             else
             {
-                if (difference < 0)
+                if(CalcButtonSate())
                 {
-                    roundCorrectCount--;
-                }
+                    if (difference < 0)
+                    {
+                        roundCorrectCount--;
+                    }
 
-                if (difference > 6)
-                {
-                    difference = -1;
-                    roundCorrectCount--;
+                    if (difference > 6)
+                    {
+                        difference = -1;
+                        roundCorrectCount--;
+                    }
                 }
             }
 
@@ -179,12 +192,15 @@ public class QuizManager : MonoBehaviour
 
         if (roundCorrectCount == goalID)
         {
-            _soundManager.PlaySECorrect();
-            Debug.Log("正解！");
-            quizCorrectCount++;
-            roundCorrectCount = 0;
-            score++;
-            BeginQuiz();
+            if(CalcButtonSate())
+            {
+                _soundManager.PlaySECorrect();
+                Debug.Log("正解！");
+                quizCorrectCount++;
+                roundCorrectCount = 0;
+                score++;
+                BeginQuiz();
+            }
         }
     }
 
@@ -234,12 +250,18 @@ public class QuizManager : MonoBehaviour
 
         StartCoroutine("sleep", 1);
         BeginQuiz();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (isDebug)
+        {
+            _debugDegree_text.text = (_tableInput.GetEuler()).ToString();
+            _nowPos_text.text = "Now: " + _sectionDetectore.GetCurrentId().ToString();
+        }
+        
         if (isUpdate)
         {
             nowTime -= Time.deltaTime;
