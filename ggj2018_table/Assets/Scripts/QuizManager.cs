@@ -248,12 +248,16 @@ public class QuizManager : MonoBehaviour
             {
                 Debug.Log("時間切れ！");
                 nowTime = 0.0f;
+                _displayManager.SetCountDown(nowTime);
                 isUpdate = false;
                 _soundManager.PlaySEWrong();
                 StartCoroutine("sleep", 1);
                 SceneManager.LoadScene("main");
 
 
+            }else
+            {
+                _displayManager.SetCountDown(nowTime);
             }
 
             switch (nowType)
