@@ -9,16 +9,16 @@ public class SoundManager : MonoBehaviour {
     public AudioSource _bgSource;
 
     // 正解音
-    [SerializeField]
     private AudioSource _correctSource;
 
     // 成功ジングル
-    [SerializeField]
     private AudioSource _successJingleSource;
 
     // 失敗音
-    [SerializeField]
     private AudioSource _wrongSource;
+
+    // 出題音
+    private AudioSource _questSource;
 
     public List<AudioClip> _seAudioClip = new List<AudioClip>();
 
@@ -44,7 +44,10 @@ public class SoundManager : MonoBehaviour {
             case 2:
                 PlaySEWrong();
                 break;
-            case 3:
+            case 4:
+
+                break;
+            case 5:
                 break;
         }
     }
@@ -76,6 +79,15 @@ public class SoundManager : MonoBehaviour {
         }
     }
 
+    public void PlaySEQuest()
+    {
+        if (_questSource != null)
+        {
+            _questSource.loop = false;
+            _questSource.Play();
+        }
+    }
+
     // Use this for initialization
     void Start () {
         _correctSource = gameObject.AddComponent<AudioSource>();
@@ -84,6 +96,8 @@ public class SoundManager : MonoBehaviour {
         _successJingleSource.clip = _seAudioClip[1];
         _wrongSource = gameObject.AddComponent<AudioSource>();
         _wrongSource.clip = _seAudioClip[2];
+        _questSource = gameObject.AddComponent<AudioSource>();
+        _questSource.clip = _seAudioClip[3];
     }
 	
 	// Update is called once per frame

@@ -94,6 +94,7 @@ public class QuizManager : MonoBehaviour
         // UIセット
         _displayManager.ShowIntroduction(nowType, tmpButton0, tmpButton1, tmpButton2, tmpButton3, nowGoalNum);
 
+        //_soundManager.PlaySEQuest();
         Debug.Log(_quizBase.GetQuizString(tmpIndex));
     }
 
